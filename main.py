@@ -143,9 +143,13 @@ with app.app_context():
   quote=quote()
   html_content = render_template('main.html', title=formatted_date,Part1=f"<image src='{dalle3('van gogh art seamlessly integrated into real life')}'>", Part3=f'<p>{quote["content"]}<br>- {quote["author"]}</p>',Part4=movie_list(), Part2=poem(), Part5='<h2>Notes</h2>', Part6=f"<h1>{datetime.today().strftime('%B %d')}</h1><image src='{dalle3('retro surrealism, digital art')}'>")
 
-file_path = 'book.html'  # Specify the file path where you want to save the HTML file
+file_path = 'index.html'  # Specify the file path where you want to save the HTML file
 
-with open(file_path, 'w') as file:
-    file.write(html_content)
-
+def create_html():
+  try:
+    with open(file_path, 'w') as file:
+      file.write(html_content)
+  except:
+    create_html()
+create_html()
 print(f"HTML file '{file_path}' has been created.")
