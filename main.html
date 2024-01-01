@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;700&display=swap">
+  <title>{{title}}</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 297mm;
+      height: 210mm;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    /* Define styles for each part */
+    .part {
+      /* border: 1px solid #000; */
+      box-sizing: border-box;
+      display: block;
+      justify-content: center;
+      align-items: center;
+      font-size: 15px;
+      padding: 20px;
+    }
+
+    .part img {
+      width: 100%; /* Make the image fill the width of its container */
+      height: auto; /* Maintain the image's aspect ratio */
+      display: block; /* Ensure the image behaves as a block element */
+    }
+    /* Apply rotation to parts 1-4 */
+    .rotated {
+      transform: rotate(180deg);
+    }
+    .time-slot {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .time {
+      /* width: 80px; */
+      /* text-align: right; */
+      margin-right: 15px;
+    }
+
+    .activity {
+      flex: 1;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2px;
+    }
+
+    .timetable {
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="part rotated">{{Part1|safe}}</div>
+  <div class="part rotated">{{Part2|safe}}</div>
+  <div class="part rotated" style="display:grid;">{{Part3|safe}}</div>
+  <div class="part rotated">{{Part4|safe}}</div>
+  <div class="part">{{Part5|safe}}</div>
+  <div class="part">{{Part6|safe}}</div>
+  <div class="part">
+    <h2>To-Do List</h2>
+<ul style="list-style-type:circle;font-size:22px;">
+  
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  
+</ul>
+  </div>
+  <div class="part">
+    <div class="timetable">
+      <div class="time-slots">
+        <!-- Time slots from 9 to 3 -->
+        <div class="time-slot">
+          <div class="time">9:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">10:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">11:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">12:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">13:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">14:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">15:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">16:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">17:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">18:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">19:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">20:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">21:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">22:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">23:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">24:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">25:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">26:00</div>
+          <div class="activity"></div>
+        </div>
+        <div class="time-slot">
+          <div class="time">27:00</div>
+          <div class="activity"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
