@@ -1,0 +1,32 @@
+name: Daily Webpage Deployment
+
+on:
+  schedule:
+    - cron: '0 9 * * *' # Runs every day at 7 am
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11' # Specify your Python version
+
+    - name: Install Dependencies
+      run: pip install -r requirements.txt # If you have any requirements
+
+    - name: Generate Webpage
+      run: python main.py # Replace with your script name
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.email "harry_kim1007@daum.net"
+        git config --global user.name "harrykim1007"
+        git add .
+        git commit -m "Auto-generated webpage updates"
+        git push origin main # Replace 'main' with your branch name
