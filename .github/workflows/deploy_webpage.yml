@@ -2,7 +2,7 @@ name: Daily Webpage Deployment
 
 on:
   schedule:
-    - cron: '0 9 * * *' # Runs every day at 7 am
+    - cron: '0 9 * * *' # Runs every day at 9 am
 
 jobs:
   build:
@@ -21,6 +21,8 @@ jobs:
       run: pip install -r requirements.txt # If you have any requirements
 
     - name: Generate Webpage
+      env:
+        OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
       run: python main.py # Replace with your script name
 
     - name: Commit and Push Changes
