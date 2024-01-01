@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from datetime import datetime, timedelta
 import random
 from openai import OpenAI
+import os
 # Get the current date
 current_date = datetime.now()
 
@@ -119,7 +120,7 @@ def poem():
       
 def dalle3(prompt):
   # Replace YOUR_API_KEY with your OpenAI API key
-  client = OpenAI(api_key = "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")
+  client = OpenAI(api_key = os.environ.get('OPENAI_KEY'))
 
   # Call the API
   response = client.images.generate(
