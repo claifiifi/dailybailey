@@ -24,7 +24,9 @@ jobs:
     - name: Generate Webpage
       env:
         OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
-      run: python main.py # Replace with your script name
+      run: |
+        rm -r /images
+        python main.py # Replace with your script name
 
     - name: Commit and Push Changes
       run: |
