@@ -4,6 +4,8 @@ import random
 from openai import OpenAI
 import os
 from pytz import timezone
+import requests
+from bs4 import BeautifulSoup
 
 def generate_file_name(directory, base_name, extension):
     # Initialize counter
@@ -16,21 +18,10 @@ def generate_file_name(directory, base_name, extension):
             return file_name
         # Increment counter if the file exists
         counter += 1
-
-
-# Get the current date
-current_date = datetime.now()
-
-# Format the date as "Month Day"
-formatted_date = current_date.strftime("%B %d")
-
-print(formatted_date)  # Output: December 23 (example output based on current date)
-
-
+        
 app = Flask(__name__)
 
-import requests
-from bs4 import BeautifulSoup
+
 def pageexists(date):
   url = f'https://www.boxofficemojo.com/date/{date}/'
   # Make a request to the webpage
@@ -84,8 +75,6 @@ def movie_list():
   url = f"https://www.boxofficemojo.com/date/{date.strftime('%Y-%m-%d')}/"
   response = requests.get(url)
   
-
-
   soup = BeautifulSoup(response.content, 'html.parser')
   
   # Find the table containing movie information
@@ -117,7 +106,6 @@ def movie_list():
       html_output += f"<li><strong>{movie['Title']}</strong><br>{movie['Total Gross']}    +{movie['Daily Gross']}</li>"
   html_output += '</ol>'
   return html_output
-
 
 def poem():
   # Make a request to the API
@@ -164,7 +152,6 @@ def dalle3(prompt):
   )
   return download_image(response.data[0].url, "images")
 
-
 def quote():
   response = requests.get("https://api.quotable.io/random")
   data = response.json()
@@ -172,7 +159,7 @@ def quote():
 with app.app_context():
   print(f"<h2>{datetime.today().strftime('%B %d')}</h2>")
   quote=quote()
-  html_content = render_template('main.html', title=formatted_date,Part1=f"<image src='{dalle3('van gogh art seamlessly integrated into real life')}'>", Part3=f'<p>{quote["content"]}<br>- {quote["author"]}</p>',Part4=movie_list(), Part2=poem(), Part5='<h2>Notes</h2>', Part6=f"<h1>{datetime.now(timezone('Asia/Seoul')).strftime('%B %d')}</h1><image src='{dalle3('retro surrealism, digital art')}'>")
+  html_content = render_template('main.html', title=datetime.now(timezone('Asia/Seoul')).strftime('%B %d'),Part1=f"<image src='{dalle3('van gogh art seamlessly integrated into real life')}'>", Part3=f'<p>{quote["content"]}<br>- {quote["author"]}</p>',Part4=movie_list(), Part2=poem(), Part5='<h2>Notes</h2>', Part6=f"<h1>{datetime.now(timezone('Asia/Seoul')).strftime('%B %d')}</h1><image src='{dalle3('retro surrealism, digital art')}'>")
 
 file_path = 'index.html'  # Specify the file path where you want to save the HTML file
 
