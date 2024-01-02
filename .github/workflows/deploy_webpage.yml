@@ -3,6 +3,7 @@ name: Daily Webpage Deployment
 on:
   schedule:
     - cron: '0 9 * * *' # Runs every day at 9 am
+  workflow_dispatch:
 
 jobs:
   build:
