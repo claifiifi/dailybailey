@@ -3,6 +3,20 @@ from datetime import datetime, timedelta
 import random
 from openai import OpenAI
 import os
+
+def generate_file_name(directory, base_name, extension):
+    # Initialize counter
+    counter = 1
+    while True:
+        # Construct the file name
+        file_name = f"{base_name}{counter}.{extension}"
+        # Check if the file already exists in the directory
+        if not os.path.exists(os.path.join(directory, file_name)):
+            return file_name
+        # Increment counter if the file exists
+        counter += 1
+
+
 # Get the current date
 current_date = datetime.now()
 
@@ -39,6 +53,23 @@ def pageexists(date):
           return False
   else:
       return False
+
+def download_image(url, folder_name):
+    # Create a folder if it doesn't exist
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+    
+    # Get the image file name from the URL
+    image_name = os.path.join(folder_name, generate_file_name("images", "image", "png"))
+    
+    # Send a GET request to download the image
+    response = requests.get(url)
+    
+    # Save the image to the specified folder
+    with open(image_name, 'wb') as file:
+        file.write(response.content)
+    
+    return image_name
 
 def movie_list():
   # Get today's date
@@ -130,10 +161,8 @@ def dalle3(prompt):
     quality="standard",
     n=1,
   )
-  return response.data[0].url
+  return download_image(response.data[0].url, "images")
 
-def cover(title, id):
-  return f"<image src='{recent_post_url(id)}'><p>{title}</p>"
 
 def quote():
   response = requests.get("https://api.quotable.io/random")
@@ -142,15 +171,11 @@ def quote():
 with app.app_context():
   print(f"<h2>{datetime.today().strftime('%B %d')}</h2>")
   quote=quote()
-  html_content = render_template('main.html', title=formatted_date,Part1=f"<image src='{dalle3('van gogh art seamlessly integrated into real life')}'>", Part3=f'<p>{quote["content"]}<br>- {quote["author"]}</p>',Part4=movie_list(), Part2=poem(), Part5='<h2>Notes</h2>', Part6=f"<h1>{datetime.today().strftime('%B %d')}</h1><image src='{dalle3('retro surrealism, digital art')}'>")
+  html_content = render_template('main.html', title=formatted_date,Part1=f"<image src='{dalle3('van gogh art seamlessly integrated into reality')}'>", Part3=f'<p>{quote["content"]}<br>- {quote["author"]}</p>',Part4=movie_list(), Part2=poem(), Part5='<h2>Notes</h2>', Part6=f"<h1>{datetime.today().strftime('%B %d')}</h1><image src='{dalle3('retro surrealism, digital art')}'>")
 
-file_path = 'index.html'  # Specify the file path where you want to save the HTML file
+file_path = 'book.html'  # Specify the file path where you want to save the HTML file
 
-def create_html():
-  try:
-    with open(file_path, 'w') as file:
-      file.write(html_content)
-  except:
-    create_html()
-create_html()
+with open(file_path, 'w') as file:
+    file.write(html_content)
+
 print(f"HTML file '{file_path}' has been created.")
