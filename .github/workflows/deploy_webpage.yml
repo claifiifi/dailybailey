@@ -2,8 +2,7 @@ name: Daily Webpage Deployment
 
 on:
   schedule:
-    - cron: '10 12 * * *' # Runs every day at 9 am
-  workflow_dispatch:
+    - cron: '15 12 * * *' # Runs every day at 9 am
 
 jobs:
   build:
