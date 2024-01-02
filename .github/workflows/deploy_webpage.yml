@@ -25,7 +25,7 @@ jobs:
       env:
         OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
       run: |
-        rm -r /images
+        # rm -r /images
         python main.py # Replace with your script name
 
     - name: Commit and Push Changes
